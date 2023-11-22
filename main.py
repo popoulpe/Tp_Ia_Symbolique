@@ -33,7 +33,7 @@ class Rumba:
 
     def isMovementPossible(self) :
         for bloc in self.top :
-            
+
 
     #def testEtatBut(etat) :                            #testEtatBut(etat) ; {prédicat caractérisant les buts}
 
@@ -62,3 +62,4 @@ class Rumba:
         return(False, depart)                           #On return Faux et la liste de départ
 
     main() :
+#test
