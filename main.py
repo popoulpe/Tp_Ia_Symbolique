@@ -1,12 +1,16 @@
 from collection import deque
 from dataclass import dataclass as dc
+NB_COLONNE = 4
+NB_LIGNE = 3
 
 @dataclass
 class Rumba:
     rumba : [][]
+    top : []
 
-    def __init__(self, ligne, colonne):
-        self.rumba = self.get_rumba(ligne, colonne)
+    def __init__(self):
+        self.rumba = self.get_rumba(NB_LIGNE, NB_COLONNE)
+        self.top = [] * NB_COLONNE
 
     def get_rumba(self, ligne, colonne):
         num = 1
@@ -17,18 +21,26 @@ class Rumba:
                 num += 1
         return matrice
 
-    def isTopPile
+    def topPile(self) :
+        for i_colonne in range(NB_COLONNE) :
+            while len(self.top) < i_colonne :
+                for i_ligne in range(NB_LIGNE) :
+                    if self.rumba[i_ligne][i_colonne] :
+                        self.top.append(self.rumba[i_ligne][i_colonne])
+                    elif (i_ligne+1) >= NB_LIGNE :
+                        self.top.append(None)
+        return self.top
 
-    def topPile()
-
-    def isMovementPossible()
+    def isMovementPossible(self) :
+        for bloc in self.top :
+            
 
     #def testEtatBut(etat) :                            #testEtatBut(etat) ; {prédicat caractérisant les buts}
 
     def filsEtat(etat):                                 #filsEtat(etat) ; {retourne la liste des fils d'un état}
         fils = []
         truc =
-        if :
+        if isMovementPossible() :
             fils.append(truc)
         return fils
 
@@ -48,3 +60,5 @@ class Rumba:
             enAttente.insert(0, e)                      #On les insert à l'indice 0 de la liste enAttente
       if trouve == False:                               #Si l'état n'a pas été trouvé
         return(False, depart)                           #On return Faux et la liste de départ
+
+    main() :
