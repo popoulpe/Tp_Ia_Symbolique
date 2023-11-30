@@ -1,6 +1,7 @@
 import rumba as rmb
 
 #penser a noter l'heuristique utilisée
+#kevin.delcourt@irit.fr
 
 jeu = rmb.Rumba([[3,0,0,0],
                  [2,5,8,9],
