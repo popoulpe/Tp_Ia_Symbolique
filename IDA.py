@@ -1,9 +1,20 @@
 class Tree:
-    def __init__(self, value, cost):
-        self.root= None
-        self.value= value
-        self.cost= cost
-        self.child= []
+    def __init__(self, pere, valeur, cout):
+        self.pere= pere
+        self.valeur= valeur
+        self.cout= cout
+        self.fils= []
+        self.nbFils =0
+
+    def ajoutFils(self, fils):
+        self.fils.append(fils)
+        self.nbFils+=1
+    
+    def getPere(self):
+        return self.pere
+    
+    def getFils(self, indice):
+        return self.fils[indice]
 
 x= [[None]*3]*4
 print(x)

@@ -20,29 +20,41 @@ class Rumba:
         for i in range(NB_LIGNE) :
             if self.rumba[i][numCol] != 0:
                 return i
-        return NB_LIGNE
+        return NB_LIGNE-1
     
     #deplace la piece en haut de la colonne de "fromCol" a "toCol"
     #retourne True si possible et False si impossible
     def mouvPiece(self, fromCol, toCol):
+        temp = Rumba([innerList[:] for innerList in self.rumba]
+                     , [innerList[:] for innerList in self.but])
         if self.isMouvPossible(fromCol, toCol):
-            return False
-        ligFromCol = self.getTop(fromCol)
-        ligToCol = self.getTop(toCol)-1
+            return (False, temp)
+        ligFromCol = temp.getTop(fromCol)
+        ligToCol = temp.getTop(toCol)-1
 
-        self.rumba[ligToCol][toCol] = self.rumba[ligFromCol][fromCol]
-        self.top[toCol] = self.rumba[ligFromCol][fromCol]
-        self.rumba[ligFromCol][fromCol] = 0
-        self.top[fromCol] = self.rumba[self.getTop(fromCol)][fromCol]
-        return True
+        temp.rumba[ligToCol][toCol] = temp.rumba[ligFromCol][fromCol]
+        print("a", toCol, " ", ligFromCol, " ", fromCol, " et ", len(temp.rumba))
+        temp.top[toCol] = temp.rumba[ligFromCol][fromCol]
+        temp.rumba[ligFromCol][fromCol] = 0
+        temp.top[fromCol] = temp.rumba[temp.getTop(fromCol)][fromCol]
+        return (True, temp)
 
-    #retourne si un mouvement est possible 
+    #retourne True si le mouvement est possible 
     def isMouvPossible(self, fromCol, toCol) :
-        return not((self.top[fromCol] == 0) or (self.rumba[toCol][0] != 0))
-
-    def isButReached(self):
+        return not((self.top[fromCol] == 0) or (self.rumba[0][toCol] != 0))
+    
+    #retourne true si le but est atteint
+    def isButAtteint(self):
         return self.rumba == self.but
     
+    def isEqual(self, test):
+        return self.rumba == test.rumba
+    
+    def isIn (self, listTest):
+        for e in listTest:
+            if self.isEqual(e):
+                return True
+        return False
 
     """ commentaire pour pouvoir compiler
     #def testEtatBut(etat) :                            #testEtatBut(etat) ; {prédicat caractérisant les buts}
