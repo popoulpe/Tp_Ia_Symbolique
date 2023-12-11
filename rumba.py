@@ -85,3 +85,12 @@ class Rumba:
             for j in range(NB_COLONNE):
                 rslt += " "+self.rumba[i][j]
         return rslt
+    
+    def AfficherBut(self):
+        rslt =""
+        for i in range(NB_LIGNE):
+            rslt += "\n"
+            for j in range(NB_COLONNE):
+                rslt += " "+str(self.but[i][j])
+        rslt += "\n _______"
+        return rslt

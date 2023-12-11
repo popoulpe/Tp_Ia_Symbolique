@@ -79,13 +79,14 @@ def PDE_IDA(depart=rmb.Rumba, seuil= 0, vus=[]):
     return (False, depart, vus, prochainSeuil)
 
 def IDAe (depart=rmb.Rumba):
-    #1: rumba solution, 2: programme termine ?,3: vus, inutile ici, 4: seuil prochaine recherche 
+    #0: programme termine, 1: rumba solution ?,2: vus, inutile ici, 3: seuil prochaine recherche 
     solution = [False, None, None, depart.heuristique]
+    lstIterations = [solution]
 
     while not solution[0]:
        print("seuil: ", solution[3])
        solution = PDE_IDA(depart, solution[3])
 
     print ("ici",solution[1].rumba)
-    return (solution[0],solution[1])
+    return (solution[1].lstMvmnt,solution[1].heuristique, solution[1])
        
