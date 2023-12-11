@@ -83,6 +83,18 @@ def AfficherMatrice(matrice):
     for i in range(NB_LIGNE):
         rslt += "\n"
         for j in range(NB_COLONNE):
-            rslt += " "+str(matrice[i][j])
+            chiffre = matrice[i][j]
+            match chiffre :
+                case 0 :
+                    rslt += " | "
+                case 1 | 2 | 3 :
+                    rslt += "\33[43m " + str(chiffre) + " \33[0m" #\33[43m code Jaune
+
+                case 4 | 5 | 6 :
+                    rslt += "\33[44m " + str(chiffre) + " \33[0m" #\33[44m code Bleu
+
+                case 7 | 8 | 9 :
+                    rslt += "\33[41m " + str(chiffre) + " \33[0m" #\33[41m code Rouge
+
     rslt += "\n _______"
     return rslt
