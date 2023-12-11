@@ -44,3 +44,5 @@ Situation2But6 =rmb.Rumba(Situation2,
                             [4,5,6,0]])
 
 print("Situation 1, But 1:\n")
+temporaire= algR.IDAe(Situation1But1)
+print("Réussite: ",temporaire[0], "\nRésultat: ", temporaire[1].AfficherRumba())

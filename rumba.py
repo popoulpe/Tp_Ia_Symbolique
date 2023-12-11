@@ -77,3 +77,11 @@ class Rumba:
 
     def calculHeuristique(self):
         return len(self.lstMvmnt)+self.nombreMalMis()
+    
+    def AfficherRumba(self):
+        rslt =""
+        for i in range(NB_LIGNE):
+            rslt += "\n"
+            for j in range(NB_COLONNE):
+                rslt += " "+self.rumba[i][j]
+        return rslt
