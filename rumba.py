@@ -18,7 +18,7 @@ class Rumba:
     def create_topPile(self) :
         top=[]
         for i in range(NB_COLONNE) :
-            top.append(self.rumba[self.getTop(i)][i])
+            top.append(self.getTop(i))
         return top
     
     #retourne l'indice de la valeur accessible d'une colonne
@@ -26,7 +26,7 @@ class Rumba:
         for i in range(NB_LIGNE) :
             if self.rumba[i][numCol] != 0:
                 return i
-        return NB_LIGNE-1
+        return NB_LIGNE
     
     #deplace la piece en haut de la colonne de "fromCol" a "toCol"
     #retourne True si possible et False si impossible
@@ -35,20 +35,19 @@ class Rumba:
                      , [innerList[:] for innerList in self.but])
         if not self.isMouvPossible(fromCol, toCol):
             return (False, temp)
-        ligFromCol = temp.getTop(fromCol)
-        ligToCol = temp.getTop(toCol)-1
 
-        temp.rumba[ligToCol][toCol] = temp.rumba[ligFromCol][fromCol]
-        temp.top[toCol] = temp.rumba[ligFromCol][fromCol]
-        temp.rumba[ligFromCol][fromCol] = 0
-        temp.top[fromCol] = temp.rumba[temp.getTop(fromCol)][fromCol]
+        temp.rumba[self.top[toCol]][toCol] = temp.rumba[self.top[fromCol]][fromCol]
+        temp.top[toCol] = self.getTop(toCol)
+        temp.rumba[self.top[fromCol]][fromCol] = 0
+        temp.top[fromCol] = self.getTop(fromCol)
+
         temp.lstMvmnt.append([fromCol, toCol])
         temp.heuristique = temp.calculHeuristique()
         return (True, temp)
 
     #retourne True si le mouvement est possible 
     def isMouvPossible(self, fromCol, toCol) :
-        return ((self.top[fromCol] != 0) and (self.rumba[0][toCol] == 0) and (fromCol != toCol))
+        return ((self.rumba[self.top[fromCol]][fromCol] != 0) and (self.rumba[0][toCol] == 0) and (fromCol != toCol))
     
     #retourne true si le but est atteint
     def isButAtteint(self):
@@ -96,5 +95,5 @@ def AfficherMatrice(matrice):
                 case 7 | 8 | 9 :
                     rslt += "\33[41m " + str(chiffre) + " \33[0m" #\33[41m code Rouge
 
-    rslt += "\n _______"
+    rslt += "\n"
     return rslt
