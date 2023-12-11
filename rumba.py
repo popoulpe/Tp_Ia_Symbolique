@@ -18,7 +18,7 @@ class Rumba:
     def create_topPile(self) :
         top=[]
         for i in range(NB_COLONNE) :
-            top.append(self.rumba[self.getTop(i)][i])
+            top.append(self.getTop(i)[i])
         return top
     
     #retourne l'indice de la valeur accessible d'une colonne
@@ -26,7 +26,7 @@ class Rumba:
         for i in range(NB_LIGNE) :
             if self.rumba[i][numCol] != 0:
                 return i
-        return NB_LIGNE-1
+        return NB_LIGNE
     
     #deplace la piece en haut de la colonne de "fromCol" a "toCol"
     #retourne True si possible et False si impossible
@@ -35,13 +35,13 @@ class Rumba:
                      , [innerList[:] for innerList in self.but])
         if not self.isMouvPossible(fromCol, toCol):
             return (False, temp)
-        ligFromCol = temp.getTop(fromCol)
-        ligToCol = temp.getTop(toCol)-1
+        ligFromCol = temp.top(fromCol)
+        ligToCol = temp.top(toCol)-1
 
         temp.rumba[ligToCol][toCol] = temp.rumba[ligFromCol][fromCol]
-        temp.top[toCol] = temp.rumba[ligFromCol][fromCol]
+        temp.top[toCol] -= 1
         temp.rumba[ligFromCol][fromCol] = 0
-        temp.top[fromCol] = temp.rumba[temp.getTop(fromCol)][fromCol]
+        temp.top[fromCol] += 1
         temp.lstMvmnt.append([fromCol, toCol])
         temp.heuristique = temp.calculHeuristique()
         return (True, temp)
@@ -89,12 +89,9 @@ def AfficherMatrice(matrice):
                     rslt += " | "
                 case 1 | 2 | 3 :
                     rslt += "\33[43m " + str(chiffre) + " \33[0m" #\33[43m code Jaune
-
                 case 4 | 5 | 6 :
                     rslt += "\33[44m " + str(chiffre) + " \33[0m" #\33[44m code Bleu
-
                 case 7 | 8 | 9 :
                     rslt += "\33[41m " + str(chiffre) + " \33[0m" #\33[41m code Rouge
-
-    rslt += "\n _______"
+    rslt += "\n"
     return rslt
