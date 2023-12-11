@@ -5,10 +5,16 @@ import algoResolution as algR
 #kevin.delcourt@irit.fr
 
 def AfficherIteration(lstIterations):
-    for i in range(len(lstIterations)):
-        print("    Iteration numero ", i, ": ", lstIterations[i+0],
-               " noeuds créés et ", lstIterations[i+1], " noeuds développés")
+    rslt = "\n"
+    for i in range(len(lstIterations)-1):
+        rslt += "    Iteration numero "+ str(i)+ ": "+ str(lstIterations[i+0])+" noeuds créés et "+ str(lstIterations[i+1])+ " noeuds développés"
+    return rslt
 
+def AfficherLstRumba(lstRumba):
+    rslt = ""
+    for i in range(len(lstRumba)):
+        rslt += str(rmb.AfficherMatrice(lstRumba[i].rumba))
+    return rslt
 
 """
 Jaune: 1, 2, 3
@@ -51,6 +57,7 @@ Situation2But6 =rmb.Rumba(Situation2,
 
 print("Situation 1, But 1:\n", rmb.AfficherMatrice(Situation1But1.rumba))
 temporaire= algR.IDAe(Situation1But1)
+print(temporaire[2])
 print("\nRésultat: ",temporaire[0],"\nCout opti: ", temporaire[1],
-         "\nItérations: ", len(temporaire[3]), AfficherIteration(temporaire[3]),
-            "\nListe des noeuds développés: ", temporaire[4])
+         "\nItérations: ", len(temporaire[2]), AfficherIteration(temporaire[2]),
+            "\nListe des noeuds développés: ", AfficherLstRumba(temporaire[3]))
