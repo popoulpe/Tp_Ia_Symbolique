@@ -78,19 +78,11 @@ class Rumba:
     def calculHeuristique(self):
         return len(self.lstMvmnt)+self.nombreMalMis()
     
-    def AfficherRumba(self):
-        rslt =""
-        for i in range(NB_LIGNE):
-            rslt += "\n"
-            for j in range(NB_COLONNE):
-                rslt += " "+self.rumba[i][j]
-        return rslt
-    
-    def AfficherBut(self):
-        rslt =""
-        for i in range(NB_LIGNE):
-            rslt += "\n"
-            for j in range(NB_COLONNE):
-                rslt += " "+str(self.but[i][j])
-        rslt += "\n _______"
-        return rslt
+def AfficherMatrice(matrice):
+    rslt =""
+    for i in range(NB_LIGNE):
+        rslt += "\n"
+        for j in range(NB_COLONNE):
+            rslt += " "+str(matrice[i][j])
+    rslt += "\n _______"
+    return rslt

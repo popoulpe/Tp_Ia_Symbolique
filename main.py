@@ -4,6 +4,12 @@ import algoResolution as algR
 #penser a noter l'heuristique utilisée
 #kevin.delcourt@irit.fr
 
+def AfficherIteration(lstIterations):
+    for i in range(len(lstIterations)):
+        print("    Iteration numero ", i, ": ", lstIterations[i+0],
+               " noeuds créés et ", lstIterations[i+1], " noeuds développés")
+
+
 """
 Jaune: 1, 2, 3
 Bleu:  4, 5, 6
@@ -16,7 +22,6 @@ Situation1 =[[0,0,4,7],
 Situation2 =[[1,4,7,0],
              [2,5,8,0],
              [3,6,9,0]]
-
 
 Situation1But1 =rmb.Rumba(Situation1,
                             [[1,0,4,7],
@@ -43,6 +48,8 @@ Situation2But6 =rmb.Rumba(Situation2,
                             [7,8,9,0],
                             [4,5,6,0]])
 
-print("Situation 1, But 1:\n", Situation1But1.AfficherBut())
+print("Situation 1, But 1:\n", rmb.AfficherMatrice(Situation1But1.rumba))
 temporaire= algR.IDAe(Situation1But1)
-print("\nRésultat: ",temporaire[0],"\nHeurisitique: ", temporaire[1])
+print("\nRésultat: ",temporaire[0],"\nCout opti: ", temporaire[1],
+         "\nItérations: ", len(temporaire[3]), AfficherIteration(temporaire[3]),
+            "\nListe des noeuds développés: ", temporaire[4])
