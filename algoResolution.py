@@ -1,37 +1,40 @@
 import rumba as rmb
 
-def PDE_IDA(depart=rmb.Rumba, seuil= 0, vus=[]):
+#algorithme de recherche profondeur bornée, prend en entrée le départ et le seuil
+# retourne  0: programme termine, 1: rumba solution ?,2: vus, 3: totalAttente, 4: seuil prochaine recherche 
+def PDE_IDA(depart=rmb.Rumba, seuil= 0):
     enAttente = [depart]
-    continu = True
-    prochainSeuil = -1
-    nbAttente = 1
-    
-    while (enAttente != [] and continu):
+    vus=[]
+    totalAttente = 1
+    proSeuil =-1
+
+
+    while (enAttente != []):
+        temporaire = []
+
         enCours = enAttente.pop()
-        vus.append(enCours)
+        vus.append(enCours.rumba)
 
         if enCours.isButAtteint():
-            return (True, enCours, vus, nbAttente, prochainSeuil)
+            return (True, enCours, vus, totalAttente, proSeuil)
+        
+        for fromCol in range(rmb.NB_COLONNE):
+            for toCol in range(rmb.NB_COLONNE):
+                prochain = enCours.mouvPiece(fromCol, toCol)
 
-        for e in range(rmb.NB_COLONNE):
-            for d in range(rmb.NB_COLONNE):
-                prochain = enCours.mouvPiece(e,d)
-                if prochain[0] and prochain[1]!=None and not(prochain[1].isIn(vus)): 
-                    print("prochain heurisitque: ", prochain[1].heuristique, " et seuil: ", seuil, " et proSeuil: ", prochainSeuil)
-                    testSeuil = prochain[1].heuristique
-                    if testSeuil <= seuil:
-                        temporaire = PDE_IDA(prochain[1], seuil, vus)               #probleme ici, en gros il faut reussir a faire le transfer de prochain seuil
-                        if temporaire[4] < testSeuil or testSeuil< seuil:           #(ce que j'ai essayé est surement faux)
-                            testSeuil = temporaire[4]
-                        nbAttente += temporaire[3]
-                        if temporaire[0]:
-                            return (True, temporaire[1], vus, nbAttente, prochainSeuil)
-                    if testSeuil < prochainSeuil or prochainSeuil< seuil:
-                        prochainSeuil = testSeuil
-    return (False, depart, vus, nbAttente, prochainSeuil)
+                if prochain[0] and prochain[1]!=None and not(prochain[1].rumba in vus):
 
+                    if prochain[1].heuristique <= seuil: 
+                        temporaire.insert(len(temporaire)-1,prochain[1])
+                        totalAttente+=1
+                    elif prochain[1].heuristique<proSeuil or proSeuil<seuil:
+                        proSeuil = prochain[1].heuristique
+        enAttente=enAttente+temporaire
+    return (False, depart, vus, totalAttente, proSeuil)
+
+#algorithme IDA, prend en entrée le rumba de départ
+#retourne 0: plan solution, 1: cout optimal, 2: la liste des Itérations, 3: La liste de toutes les branches développées
 def IDAe (depart=rmb.Rumba):
-    #0: programme termine, 1: rumba solution ?,2: vus, 3: nbEnAttente, 4: seuil prochaine recherche 
     solution = [False, None, None, None, depart.calculHeuristique()]
     lstIterations = []
 

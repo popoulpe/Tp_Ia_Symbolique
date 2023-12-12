@@ -39,7 +39,6 @@ class Rumba:
         test = self.top[toCol]-1
         if temp.rumba[2][toCol] == 0:
             test =2
-            
 
         temp.rumba[self.top[fromCol]][fromCol] = 0
         temp.top[fromCol] = temp.getTop(fromCol)
@@ -49,13 +48,15 @@ class Rumba:
         temp.lstMvmnt = [innerList[:] for innerList in self.lstMvmnt]
         temp.lstMvmnt.append([fromCol, toCol])
         temp.heuristique = temp.calculHeuristique()
+
         return (True, temp)
         
 
 
     #retourne True si le mouvement est possible 
     def isMouvPossible(self, fromCol, toCol) :
-        return ((self.rumba[self.top[fromCol]][fromCol] != 0) and (self.rumba[0][toCol] == 0) and (fromCol != toCol))
+        return ((self.rumba[self.top[fromCol]][fromCol] != 0) and
+                 (self.rumba[0][toCol] == 0) and (fromCol != toCol))
     
     #retourne true si le but est atteint
     def isButAtteint(self):
@@ -65,13 +66,7 @@ class Rumba:
     def isEqual(self, rumbis):
         return self.rumba == rumbis
     
-    #test is le rumba self est inclu dans une liste de rumba
-    def isIn (self, listTest):
-        for e in listTest:
-            if self.isEqual(e.rumba):
-                return True
-        return False
-
+    #renvoie quantité de nombres mal mis dans rumba par rapport au but
     def nombreMalMis(self):
         nbMalMis =0
 
@@ -81,10 +76,12 @@ class Rumba:
                     nbMalMis+=1
 
         return nbMalMis
-
+    
+    #calcul l'heuristique nombre mal mis
     def calculHeuristique(self):
         return len(self.lstMvmnt)+self.nombreMalMis()
-    
+
+#affiche la matrice avec code ansi
 def AfficherMatrice(matrice):
     rslt =""
     for i in range(NB_LIGNE):
@@ -102,6 +99,28 @@ def AfficherMatrice(matrice):
 
                 case 7 | 8 | 9 :
                     rslt += "\33[41m " + str(chiffre) + " \33[0m" #\33[41m code Rouge
+
+    rslt += "\n"
+    return rslt
+
+#affiche la matrice sans code ansi
+def AfficherMatriceSansCouleurs(matrice):
+    rslt =""
+    for i in range(NB_LIGNE):
+        rslt += "\n"
+        for j in range(NB_COLONNE):
+            chiffre = matrice[i][j]
+            match chiffre :
+                case 0 :
+                    rslt += " | "
+                case 1 | 2 | 3 :
+                    rslt += " " + str(chiffre) + " "
+
+                case 4 | 5 | 6 :
+                    rslt += " " + str(chiffre) + " "
+
+                case 7 | 8 | 9 :
+                    rslt += " " + str(chiffre) + " "
 
     rslt += "\n"
     return rslt
