@@ -32,18 +32,25 @@ class Rumba:
     #retourne True si possible et False si impossible
     def mouvPiece(self, fromCol, toCol):
         temp = Rumba([innerList[:] for innerList in self.rumba]
-                     , [innerList[:] for innerList in self.but])
+                , [innerList[:] for innerList in self.but])
         if not self.isMouvPossible(fromCol, toCol):
-            return (False, temp)    
+            return False, temp
 
-        temp.rumba[self.top[toCol]][toCol] = temp.rumba[self.top[fromCol]][fromCol]
-        temp.top[toCol] = self.getTop(toCol)
+        test = self.top[toCol]-1
+        if temp.rumba[2][toCol] == 0:
+            test =2
+
+
         temp.rumba[self.top[fromCol]][fromCol] = 0
-        temp.top[fromCol] = self.getTop(fromCol)
+        temp.top[fromCol] = temp.getTop(fromCol)
+        temp.rumba[test][toCol] = self.rumba[self.top[fromCol]][fromCol]
+        temp.top[toCol] = temp.getTop(toCol)
 
         temp.lstMvmnt.append([fromCol, toCol])
         temp.heuristique = temp.calculHeuristique()
         return (True, temp)
+
+
 
     #retourne True si le mouvement est possible
     def isMouvPossible(self, fromCol, toCol) :

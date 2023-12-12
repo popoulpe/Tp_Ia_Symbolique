@@ -54,9 +54,16 @@ Situation2But6 =rmb.Rumba(Situation2,
                             [[1,2,3,0],
                             [7,8,9,0],
                             [4,5,6,0]])
-
+"""
 print("Situation 1, But 1:\n", rmb.AfficherMatrice(Situation1But1.rumba))
 temporaire= algR.IDAe(Situation1But1)
+print(temporaire[2])
+print("\nRésultat: ",temporaire[0],"\nCout opti: ", temporaire[1],
+         "\nItérations: ", len(temporaire[2]), AfficherIteration(temporaire[2]),
+            "\nListe des noeuds développés: ", AfficherLstRumba(temporaire[3]))
+"""
+print("Situation 1, But 2:\n", rmb.AfficherMatrice(Situation1But1.rumba))
+temporaire= algR.IDAe(Situation1But2)
 print(temporaire[2])
 print("\nRésultat: ",temporaire[0],"\nCout opti: ", temporaire[1],
          "\nItérations: ", len(temporaire[2]), AfficherIteration(temporaire[2]),
