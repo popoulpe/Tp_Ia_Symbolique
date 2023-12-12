@@ -1,0 +1,49 @@
+
+def ProfondeurDabord(depart=rmb.Rumba):
+    enAttente = [depart]
+    vus = []
+    
+    while (enAttente != []):
+        temporaire = []
+        enCours = enAttente.pop()
+        vus.append(enCours)
+        if enCours.isButAtteint():
+            return (True, enCours)
+        for e in range(rmb.NB_COLONNE):
+            for d in range(rmb.NB_COLONNE):
+                prochain = enCours.mouvPiece(e,d)
+                if prochain[0] and not(prochain[1].isIn(vus)) and prochain[1]!=None:
+                    temporaire.insert(len(temporaire)-1,prochain[1])
+        enAttente=enAttente+temporaire
+    
+    return (False, depart)
+
+
+def ProfondeurDabordBornee(depart=rmb.Rumba, seuil= 0):
+    enAttente = [depart]
+    vus = []
+    position =0
+    
+    while (enAttente != []):
+        temporaire = []
+        enCours = enAttente.pop()
+        vus.append(enCours)
+        if enCours.isButAtteint():
+            return (True, enCours)
+
+        for e in range(rmb.NB_COLONNE):
+            for d in range(rmb.NB_COLONNE):
+                prochain = enCours.mouvPiece(e,d)
+                if prochain[0] and not(prochain[1].isIn(vus)) and prochain[1]!=None:
+                    temporaire.insert(len(temporaire)-1,prochain[1])
+
+        if position>=seuil:
+            for i in range(len(temporaire)):
+                if temporaire[i].isButAtteint():
+                    return (True, temporaire[i])
+                vus.append(temporaire[i])
+        else:
+            enAttente=enAttente+temporaire
+            position +=1
+    
+    return (False, depart)

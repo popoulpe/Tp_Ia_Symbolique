@@ -46,6 +46,7 @@ class Rumba:
         temp.rumba[test][toCol] = self.rumba[self.top[fromCol]][fromCol]
         temp.top[toCol] = temp.getTop(toCol)
 
+        temp.lstMvmnt = [innerList[:] for innerList in self.lstMvmnt]
         temp.lstMvmnt.append([fromCol, toCol])
         temp.heuristique = temp.calculHeuristique()
         return (True, temp)
