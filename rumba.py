@@ -26,24 +26,31 @@ class Rumba:
         for i in range(NB_LIGNE) :
             if self.rumba[i][numCol] != 0:
                 return i
-        return NB_LIGNE
+        return NB_LIGNE-1
     
     #deplace la piece en haut de la colonne de "fromCol" a "toCol"
     #retourne True si possible et False si impossible
     def mouvPiece(self, fromCol, toCol):
         temp = Rumba([innerList[:] for innerList in self.rumba]
-                     , [innerList[:] for innerList in self.but])
+                , [innerList[:] for innerList in self.but])
         if not self.isMouvPossible(fromCol, toCol):
-            return (False, temp)
+            return False, temp
+        
+        test = self.top[toCol]-1
+        if temp.rumba[2][toCol] == 0:
+            test =2
+            
 
-        temp.rumba[self.top[toCol]][toCol] = temp.rumba[self.top[fromCol]][fromCol]
-        temp.top[toCol] = self.getTop(toCol)
         temp.rumba[self.top[fromCol]][fromCol] = 0
-        temp.top[fromCol] = self.getTop(fromCol)
+        temp.top[fromCol] = temp.getTop(fromCol)
+        temp.rumba[test][toCol] = self.rumba[self.top[fromCol]][fromCol]
+        temp.top[toCol] = temp.getTop(toCol)
 
         temp.lstMvmnt.append([fromCol, toCol])
         temp.heuristique = temp.calculHeuristique()
         return (True, temp)
+        
+
 
     #retourne True si le mouvement est possible 
     def isMouvPossible(self, fromCol, toCol) :

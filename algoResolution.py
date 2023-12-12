@@ -29,7 +29,6 @@ def ProfondeurDabordBornee(depart=rmb.Rumba, seuil= 0):
         temporaire = []
         enCours = enAttente.pop()
         vus.append(enCours)
-        print("enCours: ", enCours.rumba, "but: ", enCours.but, "vu: ", len(vus))
         if enCours.isButAtteint():
             return (True, enCours)
 
@@ -60,7 +59,6 @@ def PDE_IDA(depart=rmb.Rumba, seuil= 0, vus=[]):
     while (enAttente != [] and continu):
         enCours = enAttente.pop()
         vus.append(enCours)
-        print("depart: ", depart.rumba, "nbVus: ",len(vus))
 
         if enCours.isButAtteint():
             return (True, enCours, vus, nbAttente, prochainSeuil)
