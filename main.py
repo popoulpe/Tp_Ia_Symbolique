@@ -62,8 +62,19 @@ print("\nRésultat: ",temporaire[0],"\nCout opti: ", temporaire[1],
          "\nItérations: ", len(temporaire[2]), AfficherIteration(temporaire[2]),
             "\nListe des noeuds développés: ", AfficherLstRumba(temporaire[3]))
 """
+
+"""
 print("Situation 1, But 2:\n", rmb.AfficherMatrice(Situation1But1.rumba))
 temporaire= algR.IDAe(Situation1But2)
+print(temporaire[2])
+print("\nRésultat: ",temporaire[0],"\nCout opti: ", temporaire[1],
+         "\nItérations: ", len(temporaire[2]), AfficherIteration(temporaire[2]),
+            "\nListe des noeuds développés: ", AfficherLstRumba(temporaire[3]))
+"""
+
+
+print("Situation 2, But 5:\n", rmb.AfficherMatrice(Situation2But5.rumba))
+temporaire= algR.IDAe(Situation2But5)
 print(temporaire[2])
 print("\nRésultat: ",temporaire[0],"\nCout opti: ", temporaire[1],
          "\nItérations: ", len(temporaire[2]), AfficherIteration(temporaire[2]),
