@@ -34,7 +34,7 @@ class Rumba:
         temp = Rumba([innerList[:] for innerList in self.rumba]
                      , [innerList[:] for innerList in self.but])
         if not self.isMouvPossible(fromCol, toCol):
-            return (False, temp)
+            return (False, temp)    
 
         temp.rumba[self.top[toCol]][toCol] = temp.rumba[self.top[fromCol]][fromCol]
         temp.top[toCol] = self.getTop(toCol)
