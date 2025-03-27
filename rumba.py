@@ -20,14 +20,14 @@ class Rumba:
         for i in range(NB_COLONNE) :
             top.append(self.getTop(i))
         return top
-
+    
     #retourne l'indice de la valeur accessible d'une colonne
     def getTop(self, numCol):
         for i in range(NB_LIGNE) :
             if self.rumba[i][numCol] != 0:
                 return i
-        return NB_LIGNE
-
+        return NB_LIGNE-1
+    
     #deplace la piece en haut de la colonne de "fromCol" a "toCol"
     #retourne True si possible et False si impossible
     def mouvPiece(self, fromCol, toCol):
@@ -35,7 +35,7 @@ class Rumba:
                 , [innerList[:] for innerList in self.but])
         if not self.isMouvPossible(fromCol, toCol):
             return False, temp
-
+        
         test = self.top[toCol]-1
         if temp.rumba[2][toCol] == 0:
             test =2
@@ -50,22 +50,22 @@ class Rumba:
         temp.heuristique = temp.calculHeuristique()
 
         return (True, temp)
+        
 
 
-
-    #retourne True si le mouvement est possible
+    #retourne True si le mouvement est possible 
     def isMouvPossible(self, fromCol, toCol) :
         return ((self.rumba[self.top[fromCol]][fromCol] != 0) and
                  (self.rumba[0][toCol] == 0) and (fromCol != toCol))
-
+    
     #retourne true si le but est atteint
     def isButAtteint(self):
         return self.isEqual(self.but)
-
+    
     #test si le rumba est égale a un autre rumba.rumba bis (rumbis)
     def isEqual(self, rumbis):
         return self.rumba == rumbis
-
+    
     #renvoie quantité de nombres mal mis dans rumba par rapport au but
     def nombreMalMis(self):
         nbMalMis =0
@@ -76,7 +76,7 @@ class Rumba:
                     nbMalMis+=1
 
         return nbMalMis
-
+    
     #calcul l'heuristique nombre mal mis
     def calculHeuristique(self):
         return len(self.lstMvmnt)+self.nombreMalMis()
@@ -93,8 +93,10 @@ def AfficherMatrice(matrice):
                     rslt += " | "
                 case 1 | 2 | 3 :
                     rslt += "\33[43m " + str(chiffre) + " \33[0m" #\33[43m code Jaune
+
                 case 4 | 5 | 6 :
                     rslt += "\33[44m " + str(chiffre) + " \33[0m" #\33[44m code Bleu
+
                 case 7 | 8 | 9 :
                     rslt += "\33[41m " + str(chiffre) + " \33[0m" #\33[41m code Rouge
 
